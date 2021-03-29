@@ -25,6 +25,12 @@ message addPostRequest {
   string image = 3;
 }
 
+message updatePostRequest {
+  required string _id = 1;
+  string title = 2;
+  string image = 3;
+}
+
 message listPostRequest {
   optional string page = 1 [default = 1];
   optional int32 limit = 2;
@@ -32,11 +38,12 @@ message listPostRequest {
 }
 
 message removePostRequest {
-  required string _id = 1;
+  string _id = 1;
 }
 
 service PostService {
   rpc addPost (addPostRequest) returns (Post) {}
   rpc listPosts (listPostRequest) returns (Posts) {}
   rpc removePost (removePostRequest) returns (Empty) {}
+  rpc updatePost (updatePostRequest) returns (Post) {}
 }

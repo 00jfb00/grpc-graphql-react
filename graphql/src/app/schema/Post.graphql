@@ -29,12 +29,13 @@ type removePostOutput {
 }
 
 type Query {
-  listPosts(page: Int limit: Int _id: ID): Posts
+  listPosts(page: Int, limit: Int, _id: ID): Posts
 }
 
 type Mutation {
   addPost(data: addPostInput): addPostOutput
   removePost(_id: ID): removePostOutput
+  updatePost(_id: ID, title: String, image: String): Post
 }
 
 schema {

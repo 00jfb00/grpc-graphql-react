@@ -1,21 +1,32 @@
 import React from "react";
 import { withRouter } from "react-router-dom";
-import { graphql } from "react-apollo";
+import { graphql, compose } from "react-apollo";
 import Modal from "react-modal";
 import modalStyle from "../../constants/modalStyle";
 import gql from "graphql-tag";
 
-class CreatePage extends React.Component {
+class UpdatePage extends React.Component {
   state = {
-    title: "",
-    image: "",
+    title: this.props.location.state.title,
+    image: this.props.location.state.image,
   };
+
+  componentDidUpdate(prevProps) {
+    if (!this.props.postQuery.loading && prevProps.postQuery.loading) {
+      let Post = this.props.postQuery.listPosts.data
+        ? this.props.postQuery.listPosts.data[0]
+        : {};
+      if (this.state.title !== Post.title || this.state.image !== Post.image) {
+        this.setState(Post);
+      }
+    }
+  }
 
   render() {
     return (
       <Modal
         isOpen
-        contentLabel="Create Post"
+        contentLabel="Update Post"
         style={modalStyle}
         onRequestClose={this.props.history.goBack}
       >
@@ -42,7 +53,7 @@ class CreatePage extends React.Component {
                 className="pa3 bg-black-10 bn dim ttu pointer"
                 onClick={this.handlePost}
               >
-                Post
+                Update
               </button>
             )}
           </div>
@@ -53,14 +64,16 @@ class CreatePage extends React.Component {
 
   handlePost = async () => {
     const { title, image } = this.state;
-    await this.props.createPostMutation({ variables: { title, image } });
+    await this.props.updatePostMutation({
+      variables: { _id: this.props.match.params._id, title, image },
+    });
     this.props.history.replace("/post-app");
   };
 }
 
-const CREATE_POST_MUTATION = gql`
-  mutation PostQuery($title: String!, $image: String!) {
-    addPost(data: { title: $title, image: $image }) {
+const POST_QUERY = gql`
+  query PostQuery($_id: ID!) {
+    listPosts(_id: $_id) {
       data {
         _id
         image
@@ -70,7 +83,32 @@ const CREATE_POST_MUTATION = gql`
   }
 `;
 
-const CreatePageWithMutation = graphql(CREATE_POST_MUTATION, {
-  name: "createPostMutation",
-})(CreatePage);
-export default withRouter(CreatePageWithMutation);
+const UPDATE_POST_MUTATION = gql`
+  mutation UpdateQuery($_id: ID!, $title: String!, $image: String!) {
+    updatePost(_id: $_id, title: $title, image: $image) {
+      _id
+      image
+      title
+    }
+  }
+`;
+
+const UpdatePageWithGraphQL = compose(
+  graphql(POST_QUERY, {
+    name: "postQuery",
+    options: ({ match }) => ({
+      variables: {
+        _id: match.params._id,
+      },
+    }),
+  }),
+  graphql(UPDATE_POST_MUTATION, {
+    name: "updatePostMutation",
+  })
+)(UpdatePage);
+
+const UpdatePageWithMutation = graphql(UPDATE_POST_MUTATION)(
+  UpdatePageWithGraphQL
+);
+
+export default withRouter(UpdatePageWithMutation);

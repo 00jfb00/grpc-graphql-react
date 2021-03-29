@@ -1,11 +1,14 @@
 import addPost from './addPost';
 import listPosts from './listPosts';
 import removePost from './removePost';
+import updatePost from './updatePost';
+
 
 const resolvers: any  = {
   Mutation: {
     addPost,
-    removePost
+    removePost,
+    updatePost
   },
   Query: {
     listPosts

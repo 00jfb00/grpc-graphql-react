@@ -1,6 +1,7 @@
 import addPost from "./addPost";
 import listPosts from "./listPosts";
 import removePost from "./removePost";
+import updatePost from "./updatePost";
 
 const protoPath = "Post.proto";
 
@@ -11,6 +12,7 @@ export default {
       addPost,
       listPosts,
       removePost,
+      updatePost
     },
   },
 };
