@@ -11,7 +11,7 @@ This project has the following directory structure:
         └── app
             ├── resolvers
             ├── schema
-            └── services
+            └── clients
 ```
 
 ### 1. Install dependencies

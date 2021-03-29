@@ -1,6 +1,6 @@
 /* eslint-env jest */
 import App from "./App";
-import Client from "./clients/PostClient";
+import Client from "./clients/Post/PostClient";
 import mongoose from "mongoose";
 
 const API_KEY = "myapikey";

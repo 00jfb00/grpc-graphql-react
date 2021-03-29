@@ -1,4 +1,4 @@
-import PostClient from "../services/Post/PostClient";
+import PostClient from "../../clients/Post/PostClient";
 
 const client = PostClient();
 

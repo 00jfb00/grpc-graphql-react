@@ -1,15 +1,5 @@
-import addPost from './addPost';
-import listPosts from './listPosts';
-import removePost from './removePost';
+import Post from './Post';
 
-const resolvers: any  = {
-  Mutation: {
-    addPost,
-    removePost
-  },
-  Query: {
-    listPosts
-  },
+export default {
+    ...Post
 };
-
-export default resolvers;

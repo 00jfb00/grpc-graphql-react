@@ -1,4 +1,4 @@
-import PostClient from '../services/Post/PostClient';
+import PostClient from '../../clients/Post/PostClient';
 
 const client = PostClient();
 
@@ -8,8 +8,8 @@ interface Params {
 
 export default (root:any, params: Params) => {
   return new Promise((resolve: any, reject: any) => {
-    client.listPosts(params, function(err: any, response: any) {
-      if (err) {
+    client.removePost(params, function(err: any, response: any) {
+    if (err) {
         return reject(err);
       }
       resolve(response);

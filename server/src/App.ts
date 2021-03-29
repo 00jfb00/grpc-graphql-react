@@ -37,7 +37,7 @@ class App {
       console.error("server error for call %s of type %s", ctx.name, ctx.type);
     });
     this.server.addService(
-      `./src/clients/${PostService.protoPath}`,
+      `./src/clients/Post/${PostService.protoPath}`,
       "PostService"
     );
     this.server.use("PostService", auth("myapikey"));
