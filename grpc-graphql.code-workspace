@@ -1,0 +1,13 @@
+{
+	"folders": [
+		{
+			"path": "./view"
+		},
+		{
+			"path": "./graphql"
+		},
+		{
+			"path": "./server"
+		}
+	]
+}

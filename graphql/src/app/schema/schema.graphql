@@ -1,0 +1,43 @@
+scalar DateTime
+
+type Post {
+  _id: ID
+  title: String
+  image: String
+  createdAt: DateTime
+}
+
+type Posts {
+  count: Int
+  page: Int
+  limit: Int
+  data: [Post]
+}
+
+input addPostInput {
+  title: String
+  image: String
+}
+
+type addPostOutput {
+  message: String
+  data: Post
+}
+
+type removePostOutput {
+  message: String
+}
+
+type Query {
+  listPosts(page: Int limit: Int _id: ID): Posts
+}
+
+type Mutation {
+  addPost(data: addPostInput): addPostOutput
+  removePost(_id: ID): removePostOutput
+}
+
+schema {
+  query: Query
+  mutation: Mutation
+}

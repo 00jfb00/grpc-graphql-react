@@ -1,0 +1,13 @@
+{
+  "compileOnSave": true,
+  "autoFixOnSave": true,
+  "compilerOptions": {
+    "target": "es6",
+    "module": "commonjs",
+    "outDir": "./dist",
+    "removeComments": true,
+    "skipLibCheck": true, 
+    "strict": true,
+    "esModuleInterop": true
+  }
+}
